@@ -3,13 +3,31 @@ import { ShoppingBag, Menu, Search, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [location] = useLocation();
   const { cartCount, setIsCartOpen } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const [bgClass, setBgClass] = useState("");
+
+  useEffect(() => {
+    const hours = new Date().getHours();
+    if (hours >= 5 && hours < 17) {
+      setBgClass("bg-[hsl(var(--bg-shift-peach)/0.05)]");
+    } else {
+      setBgClass("bg-[hsl(var(--bg-shift-blush)/0.05)]");
+    }
+  }, []);
 
   const navLinks = [
     { name: "Shop", path: "/shop" },
@@ -18,7 +36,11 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-xl border-b border-border/40 transition-all">
+    <header className={`sticky top-0 z-40 w-full backdrop-blur-xl border-b border-border/40 transition-all duration-[3000ms] ${bgClass || 'bg-background/80'}`}>
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary origin-left z-50"
+        style={{ scaleX }}
+      />
       <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
         
         {/* Mobile Menu */}
@@ -106,11 +128,20 @@ export default function Navbar() {
             data-testid="button-cart"
           >
             <ShoppingBag className="h-5 w-5 md:h-6 md:w-6" />
-            {cartCount > 0 && (
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 rounded-full bg-primary text-primary-foreground border-2 border-background font-bold text-xs" data-testid="text-cart-count">
-                {cartCount}
-              </Badge>
-            )}
+            <AnimatePresence>
+              {cartCount > 0 && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute -top-1 -right-1"
+                >
+                  <Badge className="h-5 w-5 flex items-center justify-center p-0 rounded-full bg-primary text-primary-foreground border-2 border-background font-bold text-xs" data-testid="text-cart-count">
+                    {cartCount}
+                  </Badge>
+                </motion.div>
+              )}
+            </AnimatePresence>
             <span className="sr-only">Cart</span>
           </Button>
         </div>
