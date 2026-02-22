@@ -1,0 +1,371 @@
+Project: Bhonubaba – Cozy Responsive D2C E-Commerce
+
+You are a senior frontend engineer and UX-focused React architect.
+
+Build a production-grade, fully responsive D2C e-commerce storefront for Bhonubaba.
+
+The design must scale beautifully across:
+
+Large desktops (1440px+)
+
+Laptops (1024px–1440px)
+
+Tablets (768px–1024px)
+
+Mobile (320px–768px)
+
+This is not mobile-first only.
+Design must feel intentional at every breakpoint.
+
+🌷 Brand Personality
+
+Soft. Warm. Cozy. Friendly. Calm. Playful but minimal.
+
+The interface should feel:
+
+Emotionally welcoming
+
+Light and breathable
+
+Rounded and gentle
+
+Clean and uncluttered
+
+Charming but professional
+
+Avoid harsh contrast, sharp edges, dense layouts.
+
+⚙️ Tech Stack
+
+React (Vite)
+
+TypeScript
+
+TailwindCSS
+
+React Router
+
+Zustand or Context API
+
+Component-driven architecture
+
+Route-based code splitting
+
+Performance optimized
+
+Clean folder structure:
+
+/components
+/layout
+/pages
+/hooks
+/context
+/utils
+/assets
+/design-system
+
+🌈 DESIGN SYSTEM
+Color Palette (Warm & Light)
+
+Primary: Warm Peach
+Accent: Soft Blush
+Background: Cream
+Surface: Warm White
+Text: Soft Charcoal (not pure black)
+Muted Neutrals: Warm gray scale
+
+Accessible contrast required.
+
+Typography
+
+Clean friendly sans-serif.
+
+H1: 36–42px desktop
+H2: 26–30px
+H3: 18–20px
+Body: 15–16px
+Caption: 13px
+
+Line height: 1.6
+
+Typography must scale responsively.
+
+Spacing System
+
+4px base grid.
+
+Generous vertical spacing on desktop.
+Compact but breathable on mobile.
+
+Rounded Design Language
+
+Border radius scale:
+8px
+12px
+16px
+24px
+
+Soft shadows only. No hard borders.
+
+🖥 Responsive Layout Strategy
+Desktop (1440px+)
+
+Max container width (1200–1320px)
+
+12-column grid
+
+Filter sidebar visible on PLP
+
+Multi-column product grids (4–5 columns)
+
+Generous whitespace
+
+Horizontal alignment prioritized
+
+Laptop (1024–1440px)
+
+3–4 column grids
+
+Slightly reduced spacing
+
+Filter sidebar collapsible
+
+Tablet (768–1024px)
+
+2–3 column product grid
+
+Filters become slide-in panel
+
+Reduced hero height
+
+Adjusted typography scale
+
+Mobile (320–768px)
+
+2 column product grid
+
+Filters as bottom sheet
+
+Sticky CTA on PDP
+
+Thumb-friendly layout
+
+🧩 Component Requirements
+
+Reusable and modular.
+
+Button (primary, outline, ghost)
+
+Rounded input fields
+
+Product card
+
+Variant selector pills
+
+Quantity selector
+
+Cart drawer
+
+Modal
+
+Toast
+
+Skeleton loader
+
+Countdown timer
+
+Sticky mobile CTA
+
+Empty state components
+
+Friendly error components
+
+🏠 Required Pages
+Homepage
+
+Sections:
+
+Warm hero with gradient
+
+Clear welcoming headline
+
+Primary CTA
+
+Featured products
+
+Categories grid
+
+New arrivals
+
+Limited drops section
+
+Newsletter section
+
+Desktop:
+
+Multi-column sections
+
+Balanced whitespace
+
+Mobile:
+
+Vertical stacking
+
+Reduced hero height
+
+Product Listing Page (PLP)
+
+Features:
+
+Filters
+
+Sort dropdown
+
+Responsive grid layout
+
+Quick add to cart
+
+Stock badges
+
+Filters must not reload page.
+
+Use smooth state updates.
+
+Product Detail Page (PDP)
+
+Include:
+
+Large image gallery
+
+Thumbnail navigation
+
+Variant selectors
+
+Delivery estimate card
+
+Reviews
+
+Related products
+
+Prominent Add to Cart
+
+Sticky Add to Cart only on smaller screens.
+
+Desktop CTA should remain visible in viewport.
+
+Cart Drawer
+
+Slide-in panel
+
+Editable quantity
+
+Coupon input
+
+Subtotal
+
+Checkout CTA
+
+No redirect until checkout.
+
+Checkout
+
+Clean responsive layout
+
+Multi-column on desktop
+
+Stacked on mobile
+
+Inline validation
+
+Trust indicators
+
+Guest checkout
+
+Account Section
+
+Order history
+
+Wishlist
+
+Profile management
+
+Address book
+
+Tab-based navigation on desktop.
+Stacked layout on mobile.
+
+⚡ Performance
+
+Lazy load images
+
+Skeleton loaders
+
+Route-based code splitting
+
+Optimize hero LCP
+
+Avoid unnecessary re-renders
+
+🌸 Micro-Interactions
+
+Gentle hover lift
+
+Smooth drawer slide
+
+Soft fade transitions
+
+Calm shimmer loading
+
+Subtle button scale
+
+Keep motion minimal and smooth.
+
+📦 Drop Launch Landing Page
+
+Responsive layout:
+
+Desktop:
+
+Centered hero with wide breathing space
+
+Countdown + CTA
+
+Mobile:
+
+Vertical stacking
+
+Sticky CTA
+
+Soft gradient background required.
+
+📊 Mock Data
+
+Create JSON product data:
+
+id
+title
+price
+discount
+stock
+category
+variants
+images
+rating
+
+🧠 Final Output Must Include
+
+Folder structure
+
+Responsive grid system
+
+Design system tokens
+
+Reusable component library
+
+Routing setup
+
+State management
+
+Fully responsive layouts
+
+Build Bhonubaba as a warm, scalable, high-conversion D2C storefront ready for launch traffic.
