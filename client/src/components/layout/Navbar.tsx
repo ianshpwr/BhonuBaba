@@ -36,34 +36,34 @@ export default function Navbar() {
   ];
 
   return (
-    <header className={`sticky top-0 z-40 w-full backdrop-blur-xl border-b border-border/40 transition-all duration-[3000ms] ${bgClass || 'bg-background/80'}`}>
+    <header className="sticky top-0 z-40 w-full backdrop-blur-md border-b border-foreground/[0.03] bg-background/60 transition-colors">
       <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary origin-left z-50"
+        className="absolute bottom-0 left-0 right-0 h-[1px] bg-primary/20 origin-left z-50"
         style={{ scaleX }}
       />
-      <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
-        
+      <div className="container-luxury h-24 flex items-center justify-between">
+
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-foreground hover:bg-muted" data-testid="button-mobile-menu">
-                <Menu className="h-6 w-6" />
+              <Button variant="ghost" size="icon" className="text-foreground hover:bg-transparent" data-testid="button-mobile-menu">
+                <Menu className="h-5 w-5 stroke-[1.5]" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background border-r-border/40 p-6 flex flex-col">
-              <div className="flex items-center justify-between mb-8 mt-4">
-                <span className="font-heading font-bold text-2xl tracking-tight text-foreground">Bhonubaba.</span>
+            <SheetContent side="left" className="w-[300px] bg-background border-r-foreground/[0.03] p-8 flex flex-col">
+              <div className="flex items-center justify-between mb-12 mt-4">
+                <span className="font-heading font-light text-2xl tracking-tight text-foreground/80">Bhonubaba.</span>
                 <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
                   <X className="h-5 w-5" />
                 </Button>
               </div>
-              <nav className="flex flex-col space-y-6">
+              <nav className="flex flex-col space-y-8">
                 {navLinks.map((link) => (
                   <Link key={link.name} href={link.path}>
-                    <span 
-                      className={`text-xl font-medium tracking-tight transition-colors hover:text-primary ${location === link.path ? 'text-primary' : 'text-foreground'}`}
+                    <span
+                      className={`text-2xl font-light tracking-tight transition-colors hover:text-primary ${location === link.path ? 'text-primary' : 'text-foreground/70'}`}
                       onClick={() => setIsMobileMenuOpen(false)}
                       data-testid={`link-mobile-${link.name.toLowerCase()}`}
                     >
@@ -72,62 +72,52 @@ export default function Navbar() {
                   </Link>
                 ))}
               </nav>
-              <div className="mt-auto pb-8">
-                <Link href="/account">
-                  <Button variant="outline" className="w-full justify-start rounded-xl h-14 text-base font-medium">
-                    <User className="mr-3 h-5 w-5" />
-                    My Account
-                  </Button>
-                </Link>
-              </div>
             </SheetContent>
           </Sheet>
         </div>
 
         {/* Logo */}
         <Link href="/">
-          <span className="font-heading font-bold text-2xl md:text-3xl tracking-tight text-foreground cursor-pointer" data-testid="link-logo">
+          <span className="font-heading font-light text-2xl md:text-3xl tracking-tight text-foreground/90 cursor-pointer" data-testid="link-logo">
             Bhonubaba.
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-12">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.path}>
-              <span 
-                className={`text-sm font-medium tracking-wide transition-colors hover:text-primary cursor-pointer relative group ${location === link.path ? 'text-primary' : 'text-muted-foreground'}`}
+              <span
+                className={`text-[13px] font-medium tracking-[0.15em] uppercase transition-colors hover:text-primary cursor-pointer relative group ${location === link.path ? 'text-primary' : 'text-foreground/50'}`}
                 data-testid={`link-desktop-${link.name.toLowerCase()}`}
               >
                 {link.name}
-                <span className={`absolute -bottom-1.5 left-0 h-0.5 bg-primary transition-all duration-300 ${location === link.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                <span className={`absolute -bottom-2 left-0 h-[1px] bg-primary transition-all duration-500 ${location === link.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
               </span>
             </Link>
           ))}
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center space-x-2 md:space-x-4">
-          <Button variant="ghost" size="icon" className="hidden md:flex text-foreground hover:bg-muted rounded-full transition-transform hover:scale-105" data-testid="button-search">
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Search</span>
+        <div className="flex items-center space-x-3 md:space-x-6">
+          <Button variant="ghost" size="icon" className="hidden md:flex text-foreground/60 hover:text-foreground hover:bg-transparent transition-transform hover:scale-110" data-testid="button-search">
+            <Search className="h-5 w-5 stroke-[1.5]" />
           </Button>
-          
+
           <Link href="/account">
-            <Button variant="ghost" size="icon" className="hidden md:flex text-foreground hover:bg-muted rounded-full transition-transform hover:scale-105" data-testid="button-account">
-              <User className="h-5 w-5" />
-              <span className="sr-only">Account</span>
+            <Button variant="ghost" size="icon" className="hidden md:flex text-foreground/60 hover:text-foreground hover:bg-transparent transition-transform hover:scale-110" data-testid="button-account">
+              <User className="h-5 w-5 stroke-[1.5]" />
             </Button>
           </Link>
-          
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="text-foreground hover:bg-muted relative rounded-full transition-transform hover:scale-105" 
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-foreground/60 hover:text-foreground relative hover:bg-transparent transition-transform hover:scale-110"
             onClick={() => setIsCartOpen(true)}
             data-testid="button-cart"
           >
-            <ShoppingBag className="h-5 w-5 md:h-6 md:w-6" />
+            <ShoppingBag className="h-5 w-5 md:h-5 md:w-5 stroke-[1.5]" />
             <AnimatePresence>
               {cartCount > 0 && (
                 <motion.div
@@ -136,13 +126,12 @@ export default function Navbar() {
                   exit={{ scale: 0 }}
                   className="absolute -top-1 -right-1"
                 >
-                  <Badge className="h-5 w-5 flex items-center justify-center p-0 rounded-full bg-primary text-primary-foreground border-2 border-background font-bold text-xs" data-testid="text-cart-count">
+                  <div className="h-4 w-4 flex items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-[9px]">
                     {cartCount}
-                  </Badge>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
-            <span className="sr-only">Cart</span>
           </Button>
         </div>
       </div>
