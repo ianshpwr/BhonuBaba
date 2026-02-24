@@ -5,126 +5,217 @@ import ProductCard from "@/components/product/ProductCard";
 import { mockProducts } from "@/lib/mockData";
 import { ArrowRight, Truck, Shield, Sparkles } from "lucide-react";
 import heroImg from "@/assets/hero.png";
+import GlowBackground from "@/components/ui/GlowBackground";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { fadeIn, staggerContainer, imageReveal } from "@/animations/motionConfigs";
+import PageTransition from "@/components/ui/PageTransition";
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 500], [0, 150]);
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0.5]);
+
   return (
     <MainLayout>
-      {/* Hero Section */}
-      <section className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/10 to-background z-10" />
-          <img 
-            src={heroImg} 
-            alt="Warm cozy living room" 
-            className="w-full h-full object-cover animate-in fade-in duration-1000 mix-blend-multiply opacity-90"
-          />
-        </div>
-        
-        <div className="container relative z-20 px-4 md:px-6 flex flex-col items-center text-center animate-in slide-in-from-bottom-8 duration-700 delay-150 fill-mode-both">
-          <h1 className="font-heading font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight text-foreground max-w-4xl leading-[1.1] mb-6 drop-shadow-sm">
-            Make yourself at <span className="text-primary italic font-light">home</span>.
-          </h1>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-medium bg-background/50 backdrop-blur-sm px-6 py-2 rounded-full">
-            Soft, warm, and friendly essentials designed to turn your space into a sanctuary.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/shop">
-              <Button size="lg" className="rounded-full px-8 h-14 text-base font-semibold shadow-lg hover:shadow-xl transition-all active:scale-[0.98]">
-                Shop the Collection
-              </Button>
-            </Link>
-            <Link href="/drop">
-              <Button size="lg" variant="outline" className="rounded-full px-8 h-14 text-base font-semibold bg-background/50 backdrop-blur-md border-border/40 hover:bg-background">
-                View Latest Drop
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Benefits */}
-      <section className="py-16 md:py-24 bg-card/30 border-y border-border/40">
-        <div className="container px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-border/40">
-            <div className="flex flex-col items-center pt-8 md:pt-0">
-              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-6 text-primary">
-                <Truck className="w-8 h-8" />
-              </div>
-              <h3 className="font-heading font-semibold text-xl mb-3">Free shipping</h3>
-              <p className="text-muted-foreground text-sm max-w-[250px]">On all orders over $75. Carefully packed and delivered to your door.</p>
-            </div>
-            <div className="flex flex-col items-center pt-8 md:pt-0">
-              <div className="w-16 h-16 rounded-full bg-secondary/30 flex items-center justify-center mb-6 text-secondary-foreground">
-                <Sparkles className="w-8 h-8" />
-              </div>
-              <h3 className="font-heading font-semibold text-xl mb-3">Sustainable materials</h3>
-              <p className="text-muted-foreground text-sm max-w-[250px]">Ethically sourced, incredibly soft materials you can feel good about.</p>
-            </div>
-            <div className="flex flex-col items-center pt-8 md:pt-0">
-              <div className="w-16 h-16 rounded-full bg-accent/30 flex items-center justify-center mb-6 text-accent-foreground">
-                <Shield className="w-8 h-8" />
-              </div>
-              <h3 className="font-heading font-semibold text-xl mb-3">Cozy guarantee</h3>
-              <p className="text-muted-foreground text-sm max-w-[250px]">Not soft enough? Return within 30 days for a full refund, no questions asked.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* New Arrivals */}
-      <section className="py-24">
-        <div className="container px-4 md:px-6">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <h2 className="font-heading font-bold text-3xl md:text-4xl tracking-tight mb-4">New Arrivals</h2>
-              <p className="text-muted-foreground max-w-xl">Freshly spun and poured for the season. Discover our latest cozy additions.</p>
-            </div>
-            <Link href="/shop">
-              <Button variant="ghost" className="hidden md:flex group hover:bg-transparent text-primary hover:text-primary/80 px-0">
-                View all <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </div>
+      <PageTransition>
+        {/* Hero Section */}
+        <section className="relative w-full h-[85vh] md:h-[95vh] overflow-hidden flex items-center justify-center">
+          <GlowBackground />
+          <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/5 to-background z-10" />
+            <motion.div
+              variants={imageReveal as any}
+              initial="initial"
+              animate="animate"
+              className="w-full h-full"
+            >
+              <img 
+                src={heroImg} 
+                alt="Warm cozy living room" 
+                className="w-full h-full object-cover mix-blend-multiply opacity-90"
+              />
+            </motion.div>
+          </motion.div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-10 md:gap-x-6">
-            {mockProducts.slice(0, 5).map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          
-          <div className="mt-12 flex justify-center md:hidden">
-            <Link href="/shop">
-              <Button variant="outline" className="rounded-xl w-full max-w-sm">
-                View all products
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+          <motion.div 
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeIn as any}
+            className="container relative z-20 px-4 md:px-6 flex flex-col items-center text-center"
+          >
+            <motion.h1 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="font-heading font-bold text-5xl md:text-7xl lg:text-9xl tracking-tight text-foreground max-w-5xl leading-[1] mb-8 drop-shadow-sm"
+            >
+              Make yourself <br />
+              at <span className="text-primary italic font-light">home</span>.
+            </motion.h1>
+            <motion.p 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-12 leading-relaxed font-medium bg-background/30 backdrop-blur-md px-8 py-3 rounded-full border border-white/20"
+            >
+              Soft, warm, and friendly essentials designed to turn your space into a sanctuary.
+            </motion.p>
+            <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6"
+            >
+              <Link href="/shop">
+                <Button size="lg" className="rounded-full px-12 h-16 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all">
+                  Shop the Collection
+                </Button>
+              </Link>
+              <Link href="/drop">
+                <Button size="lg" variant="outline" className="rounded-full px-12 h-16 text-lg font-semibold bg-background/50 backdrop-blur-md border-border/40 hover:bg-background">
+                  View Latest Drop
+                </Button>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </section>
 
-      {/* Newsletter */}
-      <section className="py-32 relative overflow-hidden bg-primary/10 mx-4 md:mx-12 rounded-3xl mb-12">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-50" />
-        <div className="container relative z-10 px-4 flex flex-col items-center text-center">
-          <h2 className="font-heading font-bold text-3xl md:text-5xl tracking-tight mb-6 max-w-2xl leading-tight">
-            Let's stay warm together.
-          </h2>
-          <p className="text-muted-foreground md:text-lg max-w-lg mb-10">
-            Sign up for 10% off your first order, plus early access to new drops and gentle reminders to take a break.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-            <input 
-              type="email" 
-              placeholder="Your email address" 
-              className="bg-card border-border rounded-2xl px-6 py-4 text-base flex-grow focus:outline-none focus:ring-2 focus:ring-primary shadow-sm h-14"
-              required
-            />
-            <Button size="lg" className="rounded-2xl h-14 px-8 font-semibold shadow-sm hover:shadow-md transition-all">
-              Subscribe
-            </Button>
-          </form>
-        </div>
-      </section>
+        {/* Featured Benefits */}
+        <motion.section 
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeIn as any}
+          className="py-24 md:py-32 bg-card/10 border-y border-border/20 relative"
+        >
+          <div className="container px-4 md:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 text-center">
+              <motion.div whileHover={{ y: -10 }} className="flex flex-col items-center space-y-6">
+                <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center text-primary rotate-3 hover:rotate-0 transition-transform duration-300 shadow-inner">
+                  <Truck className="w-10 h-10" />
+                </div>
+                <h3 className="font-heading font-semibold text-2xl">Free shipping</h3>
+                <p className="text-muted-foreground leading-relaxed max-w-[280px]">On all orders over $75. Carefully packed and delivered to your door.</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -10 }} className="flex flex-col items-center space-y-6">
+                <div className="w-20 h-20 rounded-3xl bg-secondary/20 flex items-center justify-center text-secondary-foreground -rotate-3 hover:rotate-0 transition-transform duration-300 shadow-inner">
+                  <Sparkles className="w-10 h-10" />
+                </div>
+                <h3 className="font-heading font-semibold text-2xl">Sustainable materials</h3>
+                <p className="text-muted-foreground leading-relaxed max-w-[280px]">Ethically sourced, incredibly soft materials you can feel good about.</p>
+              </motion.div>
+              <motion.div whileHover={{ y: -10 }} className="flex flex-col items-center space-y-6">
+                <div className="w-20 h-20 rounded-3xl bg-accent/20 flex items-center justify-center text-accent-foreground rotate-6 hover:rotate-0 transition-transform duration-300 shadow-inner">
+                  <Shield className="w-10 h-10" />
+                </div>
+                <h3 className="font-heading font-semibold text-2xl">Cozy guarantee</h3>
+                <p className="text-muted-foreground leading-relaxed max-w-[280px]">Not soft enough? Return within 30 days for a full refund, no questions asked.</p>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* New Arrivals */}
+        <section className="py-32 overflow-hidden">
+          <div className="container px-4 md:px-6">
+            <motion.div 
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeIn as any}
+              className="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 text-center md:text-left gap-6"
+            >
+              <div>
+                <motion.span 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block"
+                >
+                  Limited Edition
+                </motion.span>
+                <h2 className="font-heading font-bold text-4xl md:text-6xl tracking-tight mb-4">New Arrivals</h2>
+                <p className="text-muted-foreground text-xl max-w-xl">Freshly spun and poured for the season. Discover our latest cozy additions.</p>
+              </div>
+              <Link href="/shop">
+                <Button variant="ghost" className="group hover:bg-transparent text-primary hover:text-primary/80 px-0 text-lg font-bold">
+                  Explore All <ArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-2" />
+                </Button>
+              </Link>
+            </motion.div>
+            
+            <motion.div 
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={staggerContainer as any}
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-16"
+            >
+              {mockProducts.slice(0, 5).map(product => (
+                <motion.div key={product.id} variants={fadeIn as any}>
+                  <ProductCard product={product} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Brand Story Snippet */}
+        <section className="py-32 bg-secondary/10 relative">
+          <div className="container px-4 md:px-6 text-center max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="font-heading font-bold text-3xl md:text-5xl mb-8 italic">"Comfort is a feeling, <br /> not just a fabric."</h2>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-12">
+                We believe the objects we surround ourselves with carry energy. Every Bhonubaba piece is chosen for its ability to bring a moment of peace to your busy day.
+              </p>
+              <Button variant="outline" className="rounded-full px-10 h-14 font-semibold border-primary/20 hover:border-primary transition-all">
+                Our Story
+              </Button>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Newsletter */}
+        <motion.section 
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          variants={fadeIn as any}
+          className="py-32 relative overflow-hidden bg-primary/5 mx-4 md:mx-12 rounded-[3rem] mb-24 mt-24 border border-primary/10"
+        >
+          <GlowBackground />
+          <div className="container relative z-10 px-4 flex flex-col items-center text-center">
+            <motion.div
+              animate={{ rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              className="mb-8"
+            >
+              <Sparkles className="w-12 h-12 text-primary opacity-60" />
+            </motion.div>
+            <h2 className="font-heading font-bold text-4xl md:text-6xl tracking-tight mb-8 max-w-3xl leading-tight">
+              Let's stay warm <br /> together.
+            </h2>
+            <p className="text-muted-foreground text-xl max-w-lg mb-12">
+              Sign up for 10% off your first order, plus early access to new drops and gentle reminders to take a break.
+            </p>
+            <form className="flex flex-col sm:flex-row gap-4 w-full max-w-lg" onSubmit={(e) => e.preventDefault()}>
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                className="bg-card/50 backdrop-blur-md border border-border/40 rounded-[2rem] px-8 py-5 text-lg flex-grow focus:outline-none focus:ring-2 focus:ring-primary shadow-lg h-16"
+                required
+              />
+              <Button size="lg" className="rounded-[2rem] h-16 px-10 text-lg font-bold shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                Join Us
+              </Button>
+            </form>
+          </div>
+        </motion.section>
+      </PageTransition>
     </MainLayout>
   );
 }
