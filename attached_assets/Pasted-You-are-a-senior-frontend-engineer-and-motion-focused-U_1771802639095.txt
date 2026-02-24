@@ -1,0 +1,311 @@
+You are a senior frontend engineer and motion-focused UI architect.
+
+The Bhonubaba e-commerce storefront is already built with:
+
+React (Vite)
+
+TypeScript
+
+TailwindCSS
+
+Zustand / Context API
+
+Fully responsive layouts
+
+Component-driven architecture
+
+Warm, cozy design system
+
+Your task is to upgrade the existing project with advanced, visually engaging animations while maintaining:
+
+Performance
+
+Accessibility
+
+Warm brand identity
+
+Production-grade stability
+
+This is an enhancement layer, not a redesign.
+
+⚙️ Animation Tech Stack
+
+Use:
+
+Framer Motion for layout + entrance animations
+
+CSS transitions for micro interactions
+
+transform + opacity only for performance
+
+Avoid layout-thrashing properties
+
+Route-based page transitions
+
+Lazy-loaded animation components
+
+All animations must remain GPU-friendly.
+
+🌤 1. Floating Warm Glow Background Layer
+
+Add atmospheric floating pastel blobs to:
+
+Homepage hero
+
+Drop launch page
+
+Requirements:
+
+2–4 blurred gradient orbs
+
+Very slow 20–40 second movement loop
+
+Subtle parallax tied to cursor position
+
+Low opacity (0.3–0.5)
+
+Must not block interaction
+
+Position absolutely and animate using translate3d.
+
+✨ 2. Soft Morphing Buttons
+
+Upgrade all primary buttons:
+
+Hover:
+
+Slight scale increase (1.02)
+
+Soft shadow deepening
+
+Gradient shift
+
+Optional icon slide-in
+
+Active:
+
+Quick press compression (scale 0.97, 120ms)
+
+Keep transitions under 250ms.
+
+🫧 3. Staggered Product Grid Entrance
+
+On PLP and homepage grids:
+
+Fade in
+
+Slight upward motion (20px)
+
+Scale from 0.95 to 1
+
+Stagger delay (0.05–0.08s per card)
+
+Must trigger once on scroll into view.
+
+🌸 4. Interactive Card Hover Highlight
+
+Upgrade product cards:
+
+Slight lift (translateY -6px)
+
+Radial gradient hover highlight following cursor
+
+Soft glow border on hover
+
+Smooth 200ms transition
+
+Do not over-intensify glow.
+
+🌊 5. Scroll Section Reveal System
+
+All major sections should:
+
+Fade in
+
+Slide upward 30px
+
+Slight blur (4px → 0)
+
+300–400ms transition
+
+Use Intersection Observer or Framer Motion viewport detection.
+
+🪄 6. Add-to-Cart Fly Animation
+
+When clicking “Add to Cart”:
+
+Clone product thumbnail
+
+Animate shrink + move toward cart icon
+
+Cart icon gently scales up then returns
+
+Total duration under 450ms.
+
+Must not block interaction.
+
+🧁 7. Elastic Variant Selector
+
+When selecting size/color:
+
+Selected pill expands slightly
+
+Other pills dim subtly
+
+Soft glow animation
+
+Light spring animation (low bounce)
+
+🌷 8. Scroll Progress Bloom Indicator
+
+Replace traditional progress bar with:
+
+Circular bloom indicator in bottom corner
+
+Fills based on scroll depth
+
+Subtle color transition
+
+2px ring thickness
+
+Minimal footprint.
+
+🌙 9. Time-Based Background Shift
+
+Implement optional ambient background warmth shift:
+
+Morning:
+
+More peach tone
+
+Evening:
+
+Slight blush-lavender tone
+
+Transition duration: 3–5 seconds.
+
+Should be subtle and non-distracting.
+
+💫 10. Wishlist Animation
+
+When clicking wishlist:
+
+Heart fills
+
+Gentle pulse
+
+Small sparkle burst
+
+Duration under 400ms
+
+🍃 11. Page Transition System
+
+Add route transitions:
+
+Outgoing page fades + slight blur
+
+Incoming page slides up 20px
+
+Maintain scroll reset
+
+Duration: 300ms.
+
+Use AnimatePresence.
+
+🌼 12. Image Mask Reveal
+
+On hero and drop images:
+
+Rounded mask expansion reveal
+
+Smooth bottom-up wipe
+
+400ms duration
+
+🧸 13. Cozy Loading State
+
+Replace default loading spinner with:
+
+Warm gradient background
+
+Animated logo stroke draw
+
+Friendly text: “Preparing something cozy…”
+
+Must remain lightweight.
+
+🌤 14. Gentle Floating Micro Illustrations
+
+Add subtle animated elements:
+
+Steam animation on cup product
+
+Soft sparkle near CTA
+
+Slight floating motion (6–10s loop)
+
+Use keyframes.
+
+🎯 Animation Governance Rules
+
+To maintain brand consistency:
+
+No aggressive bounce
+
+No neon/glitch/cyber effects
+
+Max 2 animated focal points per section
+
+Keep motion subtle and warm
+
+Use easing curves that feel natural
+
+Respect reduced motion user preference
+
+📂 Architecture Requirements
+
+Create:
+
+/animations
+
+buttonAnimations.ts
+
+pageTransitions.ts
+
+gridStagger.ts
+
+flyToCart.ts
+
+glowBackground.ts
+
+revealOnScroll.ts
+
+All reusable animation configs.
+
+🧠 Performance Safeguards
+
+Disable heavy effects on low-end devices
+
+Respect prefers-reduced-motion
+
+Lazy load animation-heavy components
+
+Avoid re-render loops
+
+Test Lighthouse performance
+
+📦 Final Deliverables
+
+Update existing project with:
+
+Animation system layer
+
+Reusable motion utilities
+
+Clean abstraction
+
+No broken UX flows
+
+Fully responsive behavior intact
+
+This should feel premium, warm, and emotionally engaging without compromising usability or performance.
