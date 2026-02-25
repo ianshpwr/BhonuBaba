@@ -11,6 +11,7 @@ import ProductDetail from "@/pages/ProductDetail";
 import Checkout from "@/pages/Checkout";
 import DropLaunch from "@/pages/DropLaunch";
 import NotFound from "@/pages/not-found";
+import { SilkCanvas } from "@/silk/SilkCanvas";
 
 function Router() {
   return (
@@ -31,6 +32,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <CartProvider>
+          <SilkCanvas />
           <Toaster />
           <Router />
         </CartProvider>
