@@ -12,14 +12,23 @@ const app: Express = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
+import productRoutes from './routes/productRoutes';
+import orderRoutes from './routes/orderRoutes';
+import { notFound, errorHandler } from './middlewares/errorMiddleware';
+
 app.use(express.json());
 
 import authRoutes from './routes/authRoutes';
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('API is running...');
 });
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
