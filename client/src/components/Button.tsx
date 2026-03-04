@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
 }
@@ -15,12 +15,13 @@ export default function Button({
   ...props 
 }: ButtonProps) {
   
-  const baseStyles = 'inline-flex justify-center items-center font-semibold rounded-full transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98] outline-none';
+  const baseStyles = 'inline-flex justify-center items-center font-bold rounded-xl transition-all duration-300 transform outline-none tracking-wide';
   
   const variants = {
-    primary: 'bg-peach-400 text-white peach-shadow hover:bg-peach-500 hover:shadow-lg hover:shadow-peach-300/50',
-    secondary: 'bg-peach-100 text-peach-600 hover:bg-peach-200',
-    outline: 'border-2 border-peach-300 text-peach-500 hover:bg-peach-50'
+    primary: 'bhonu-gradient text-white glow-shadow hover:shadow-[0_10px_40px_-10px_rgba(255,106,136,0.6)] hover:scale-[1.03] active:scale-[0.98]',
+    secondary: 'bg-[#1a1a1a] text-white border border-[#2a2a2a] hover:bg-[#2a2a2a] hover:scale-[1.02] active:scale-[0.98]',
+    outline: 'border border-[#ff9a8b] text-[#ff9a8b] hover:bg-[#ff9a8b]/10 hover:scale-[1.02] active:scale-[0.98]',
+    ghost: 'text-[#b3b3b3] hover:text-white hover:bg-[#1f1f1f] border border-transparent'
   };
   
   const sizes = {

@@ -8,9 +8,11 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+import { Providers } from "@/context/Providers";
+
 export const metadata = {
-  title: "PeachStore",
-  description: "Aesthetic peach-themed e-commerce platform",
+  title: "BhonuBaba",
+  description: "A premium dark-themed aesthetic e-commerce platform",
 };
 
 export default function RootLayout({
@@ -21,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} min-h-screen flex flex-col font-sans antialiased text-foreground bg-background`}>
-        <Navbar />
-        <main className="flex-grow pt-20">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-grow pt-20">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
