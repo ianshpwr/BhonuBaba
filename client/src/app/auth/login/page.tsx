@@ -23,8 +23,8 @@ export default function LoginPage() {
     console.log("Attempting to log in user with email:", formData.email);
 
     try {
-      console.log("Fetching POST http://localhost:5000/api/auth/login");
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      console.log("Fetching POST http://localhost:5001/api/auth/login");
+      const res = await fetch("http://localhost:5001/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

@@ -9,7 +9,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<any>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`http://localhost:5001/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data._id) setProduct(data);
