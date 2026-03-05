@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 
-export default function ProductsPage() {
+function ProductsList() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search') || '';
+  
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,10 +27,12 @@ export default function ProductsPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const filteredProducts = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="w-16 h-16 border-4 border-peach-200 border-t-peach-500 rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-[#2a2a2a] border-t-[#ff9a8b] rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -34,14 +40,35 @@ export default function ProductsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="flex items-center justify-between mb-12">
-        <h1 className="text-4xl font-bold text-foreground tracking-tight">All Goodies</h1>
+        <h1 className="text-4xl font-extrabold text-white tracking-tight">
+          {search ? `Search: ${search}` : "All Premium Products"}
+        </h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
-      </div>
+      
+      {filteredProducts.length === 0 ? (
+        <div className="text-center py-20 glass-card">
+          <p className="text-lg text-[#b3b3b3] mb-6">No products found matching "{search}".</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      )}
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-[60vh] items-center justify-center">
+        <div className="w-16 h-16 border-4 border-[#2a2a2a] border-t-[#ff9a8b] rounded-full animate-spin"></div>
+      </div>
+    }>
+      <ProductsList />
+    </Suspense>
   );
 }
 
