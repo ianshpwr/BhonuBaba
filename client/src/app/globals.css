@@ -50,6 +50,10 @@ body {
     box-shadow: 0 8px 30px -10px rgba(255, 154, 139, 0.4);
   }
   .card-hover {
-    @apply hover:scale-[1.03] hover:bhonu-shadow transition-all duration-300 ease-in-out cursor-pointer;
+    @apply transition-all duration-300 ease-in-out cursor-pointer;
+  }
+  .card-hover:hover {
+    @apply scale-[1.03];
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
   }
 }
