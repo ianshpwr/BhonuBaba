@@ -1,36 +1,70 @@
-# PeachStore E-Commerce Features
+# BhonuBaba - Premium E-Commerce Platform
 
-## 🎨 Theme & UI (Frontend)
-- **Aesthetic Peach Theme**: Custom color palette featuring soft peach, pastel pink, and cream hues.
-- **Modern UI Elements**: Soft box shadows, rounded corners, and smooth hover micro-interactions.
-- **Responsive Design**: Mobile-friendly layout using Tailwind CSS.
-- **Custom Components**: Pre-styled reusable `Button`, `Navbar`, `Footer`, and `ProductCard` components.
-- **Loading States**: Custom spinning loaders matching the peach aesthetic.
+BhonuBaba is a full-stack, premium e-commerce platform built with a highly aesthetic dark-peach theme. This document outlines the complete technical context, architecture, and feature set of the application.
 
-## 🛍️ Frontend Pages
-- **Home Page** (`/`): Beautiful hero section and a featured products grid.
-- **Product Listing** (`/products`): Displays all available products.
-- **Product Details** (`/products/[id]`): Shows detailed product view, price, and descriptions.
-- **Shopping Cart** (`/cart`): Interactive cart with subtotal calculation and item removal.
-- **Order History** (`/orders`): Lists all past user orders with their delivery status.
-- **Authentication** (`/auth/login`, `/auth/register`): Styled forms for user sign-up and login.
+## 🛠 Tech Stack
+- **Frontend**: Next.js (App Router), TypeScript, Tailwind CSS v4, Lucide React (Icons), React Hot Toast (Notifications).
+- **Backend**: Node.js, Express.js (TypeScript), MongoDB Atlas (Mongoose), JSON Web Tokens (JWT), bcryptjs.
+- **State Management**: React Context API (`AuthContext` and `CartContext`) mapped to `localStorage` for session persistence.
 
-## ⚙️ Backend Architecture (Express + Node.js)
-- **RESTful API**: Clean `/routes` and `/controllers` modular structure.
-- **Database**: Connected to MongoDB Atlas via Mongoose models.
-- **Error Handling**: Custom global error handling middleware for cleaner API responses.
-- **Security**: Password hashing using `bcryptjs`.
-- **Authentication Strategy**: JWT (JSON Web Token) based auth mapping to `req.user`.
+---
 
-## 📦 Database Models
-- **User schema**: Name, email, hashed password, and admin roles.
-- **Product schema**: Name, descriptions, pricing, dynamic image referencing.
-- **Order schema**: Order items array, user references, total pricing, and real-time status tracking.
+## 🎨 UI & Design System (Dark Peach Theme)
+- **Background**: Deep dark (`#0f0f0f`), Cards (`#1f1f1f`).
+- **Accent Theme**: Peach gradient (`linear-gradient(135deg, #ff9a8b, #ff6a88)`), Text (`#ffffff` & `#b3b3b3`).
+- **Styling**: Extensive use of Glassmorphism (`backdrop-blur(12px)`), soft floating shadows (`.bhonu-shadow`), subtle borders (`#2a2a2a`), completely rounded corners (`rounded-2xl`).
+- **Animations**: Global `transition-all duration-300` classes, `hover:scale` micro-animations on cards and buttons, fade-ins on page loads.
 
-## 🛠️ Tech Stack Integration
-- Built with standard `Next.js` (App Router) on the client side.
-- Configured with `ts-node` and `nodemon` for rapid backend development.
+---
 
-## 🐛 Checking Errors (Consoles)
-- **Backend Errors**: Check the terminal running `npm run dev` in the `/server` folder. Server crashes, MongoDB connection failures, and API errors are logged here via the custom `errorHandler` middleware.
-- **Frontend Errors**: Check the browser's Developer Console (F12 or Inspect -> Console) for client-side issues, failed network requests, or React runtime warnings. Build or compilation errors will appear in the terminal running `npm run dev` inside the `/client` folder.
+## 🚀 Core Features & Implementation
+
+### 1. Authentication System
+- **Backend**: `/api/auth/register` and `/api/auth/login`. Passwords hashed with `bcryptjs`. JWT created and returned to the client. Pre-save Mongoose hook handles password hashing natively.
+- **Frontend Context**: `AuthContext.tsx` stores the user securely in `localStorage`. Automatically handles `login()` and `logout()` routines.
+- **Protected Routes**: A `<ProtectedRoute>` Next.js wrapper component guards private checkout and order history features by checking Context/localStorage and redirecting to `/auth/login` if unauthenticated.
+
+### 2. Global Cart Ecosystem
+- **Context API**: `CartContext.tsx` handles `addToCart`, `removeFromCart`, `updateQuantity`, `clearCart`.
+- **Persistence**: Auto-syncs array state into `localStorage` (`bhonubaba_cart`) to survive browser refreshes.
+- **Dynamic Math**: Calculates subtotal sums and total badge counts automatically natively inside the Provider.
+
+### 3. Product & Search Architecture
+- **Backend API**: `/api/products` and `/api/products/:id` endpoints fetching from MongoDB `Product` schemas.
+- **Search System**: The universal Navbar component intercepts queries, applies `useRouter`, and pushes `?search=query` params to the products catalog. The catalog filters natively via `Next.js` `useSearchParams`.
+
+### 4. Order Management
+- **Backend**: Protected POST `/api/orders` route to construct an Order document merging the user's ID alongside the mapped Cart items. Fetches historical orders via `GET /api/orders/myorders`.
+- **Frontend Views**: Once logged in, Cart can execute Checkout, draining the CartContext, firing a Toast success alert, and routing the user to an elegant historical timeline view at `/orders`.
+
+---
+
+## 📁 Architecture & Routing Map
+
+```
+/BhonuBaba
+│
+├── /server (Express Backend @ port 5001)
+│   ├── /config (db.ts)
+│   ├── /controllers (auth, products, orders)
+│   ├── /middlewares (authMiddleware.ts, errorMiddleware.ts)
+│   ├── /models (User.ts, Product.ts, Order.ts)
+│   ├── /routes
+│   └── index.ts
+│
+└── /client (Next.js Frontend @ port 3000)
+    ├── /src/app (App Router Pages)
+    │   ├── /auth (register & login views)
+    │   ├── /cart (checkout views)
+    │   ├── /orders (protected history views)
+    │   ├── /products (catalog & dynamic [id] detail pages)
+    │   ├── globals.css (Base Tailwind Configs & layer utilities)
+    │   └── layout.tsx (Wrappers)
+    │
+    ├── /src/components (Reusable UI - Button, Navbar, Footer, ProductCard, ProtectedRoute)
+    └── /src/context (AuthContext.tsx, CartContext.tsx, Providers.tsx)
+```
+
+## 🚨 Developer Notes & Debugging
+- **macOS Port 5000 Conflict**: The backend successfully runs on `PORT 5001` (set in `server/.env`). Port 5000 is intentionally avoided to prevent collisions with the native macOS 12+ AirPlay Control Center Receiver service.
+- **Debugging Logs**: Deep `console.log` instrumentation exists in the backend controllers to trace user creation paths securely in the Express terminal without throwing opaque Axios/Fetch errors.
