@@ -31,7 +31,7 @@ export default function RegisterPage() {
       const data = await res.json();
 
       if (res.ok) {
-        toast.success("Welcome aboard! 🍑");
+        toast.success("Welcome aboard!");
         login(data);
         router.push("/");
       } else {

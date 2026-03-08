@@ -36,11 +36,11 @@ export default function Navbar() {
             <span className="text-3xl">🍑</span>
             <span className="font-bold text-2xl tracking-tight text-white hidden sm:block">Bhonu<span className="bhonu-gradient-text">Baba</span></span>
           </Link>
-          
+
           {/* Desktop Search */}
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-8 relative group">
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="Search premium goods..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -56,7 +56,7 @@ export default function Navbar() {
             <Link href="/products" className="text-[#b3b3b3] hover:text-[#ffffff] transition-colors font-medium text-sm tracking-wide">
               SHOP
             </Link>
-            
+
             <Link href="/cart" className="relative text-[#b3b3b3] hover:text-[#ff9a8b] transition-all hover:scale-110">
               <ShoppingCart className="w-6 h-6" />
               {cartCount > 0 && (
@@ -92,7 +92,7 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-white focus:outline-none p-2 bg-[#1a1a1a] rounded-lg border border-[#2a2a2a]"
             >
@@ -106,8 +106,8 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#0f0f0f] border-b border-[#2a2a2a] p-4 flex flex-col gap-4 animate-in slide-in-from-top-4">
           <form onSubmit={handleSearch} className="relative w-full">
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -121,7 +121,7 @@ export default function Navbar() {
           {user ? (
             <>
               <Link href="/orders" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-[#b3b3b3] hover:text-white">My Orders</Link>
-              <button 
+              <button
                 onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
                 className="block w-full text-left py-2 text-[#ff6a88] font-medium"
               >

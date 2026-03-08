@@ -48,7 +48,7 @@ export default function CartPage() {
   if (cartItems.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-        <h2 className="text-4xl font-extrabold text-white mb-6">Your cart is empty 🍑</h2>
+        <h2 className="text-4xl font-extrabold text-white mb-6">Your cart is empty</h2>
         <Link href="/products">
           <Button size="lg" className="text-lg px-8">Go back shopping</Button>
         </Link>
