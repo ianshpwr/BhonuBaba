@@ -21,7 +21,7 @@ export default function CartPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5001/api/orders", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
