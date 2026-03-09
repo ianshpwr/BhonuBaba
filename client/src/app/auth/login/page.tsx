@@ -55,7 +55,7 @@ export default function LoginPage() {
 
         <div className="relative">
           <h2 className="text-center text-4xl font-extrabold text-white tracking-tight">
-            Welcome back 🍑
+            Welcome back
           </h2>
           <p className="mt-4 text-center text-[#b3b3b3]">
             Or{" "}
