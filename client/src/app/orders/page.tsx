@@ -14,7 +14,7 @@ export default function OrdersPage() {
   useEffect(() => {
     if (!user) return;
     
-    fetch("http://localhost:5001/api/orders/myorders", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/myorders`, {
       headers: { Authorization: `Bearer ${user.token}` },
     })
       .then((res) => res.json())

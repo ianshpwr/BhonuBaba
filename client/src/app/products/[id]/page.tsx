@@ -11,7 +11,7 @@ export default function ProductDetailPage() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/products/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data._id) setProduct(data);
