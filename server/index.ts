@@ -10,9 +10,21 @@ dotenv.config();
 connectDB();
 
 const app: Express = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000", "https://bhonu-baba.vercel.app"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// Debug logging middleware for incoming requests
+app.use((req, res, next) => {
+    console.log(`[REQUEST] ${req.method} ${req.url}`);
+    next();
+});
+
 app.use(morgan('dev'));
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
@@ -21,9 +33,9 @@ import { notFound, errorHandler } from './middlewares/errorMiddleware';
 app.use(express.json());
 
 import authRoutes from './routes/authRoutes';
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/auth', authRoutes);
+app.use('/products', productRoutes);
+app.use('/orders', orderRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('API is running...');
