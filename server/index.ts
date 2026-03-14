@@ -6,8 +6,10 @@ import connectDB from './config/db';
 
 dotenv.config();
 
-// Connect to database
-connectDB();
+// Connect to database only if not in test env
+if (process.env.NODE_ENV !== 'test') {
+    connectDB();
+}
 
 const app: Express = express();
 const port = process.env.PORT || 5000;
@@ -44,9 +46,13 @@ app.get('/', (req: Request, res: Response) => {
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
+}
+
+export default app;
 
 // Production safety - Global error handling to prevent silent crash loops
 process.on('unhandledRejection', (err: any) => {
