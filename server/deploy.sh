@@ -24,4 +24,7 @@ npm install
 echo "⚙️ Building project..."
 npm run build
 
+echo "🔄 Restarting Service..."
+pm2 restart server || pm2 start dist/index.js --name server
+
 echo "✅ Deployment complete!"
