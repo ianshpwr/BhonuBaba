@@ -4,20 +4,28 @@ import app from '../../index';
 import User from '../../models/User';
 import Product from '../../models/Product';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-const TEST_DB = process.env.TEST_MONGO_URI || 'mongodb://127.0.0.1:27017/bhonubaba-test';
+const TEST_DB = process.env.TEST_MONGO_URI;
+const describeIntegration = TEST_DB ? describe : describe.skip;
 
-describe('API Integration Tests', () => {
+jest.setTimeout(30000);
+
+describeIntegration('API Integration Tests', () => {
     beforeAll(async () => {
-        await mongoose.connect(TEST_DB);
+        await mongoose.connect(TEST_DB as string, {
+            serverSelectionTimeoutMS: 5000,
+        });
         await User.deleteMany({});
         await Product.deleteMany({});
     });
 
     afterAll(async () => {
-        await mongoose.connection.dropDatabase();
-        await mongoose.connection.close();
+        if (mongoose.connection.readyState !== 0) {
+            await mongoose.connection.dropDatabase();
+            await mongoose.connection.close();
+        }
     });
 
     describe('Auth API [/auth]', () => {
