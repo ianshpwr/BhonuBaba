@@ -1,25 +1,12 @@
-name: Deploy to EC2
+name: Legacy Deploy Notice
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  notice:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd BhonuBaba
-            git pull origin master
-            cd server
-            npm install
-            npm run build
-            pm2 restart bhonubaba || pm2 start dist/index.js --name bhonubaba
+      - name: Explain deployment workflow
+        run: echo "Deployment is now handled by .github/workflows/ci.yml using Terraform, ECR, and ECS Fargate."
