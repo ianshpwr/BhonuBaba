@@ -352,8 +352,8 @@ jobs:
                     { name: "CLIENT_URL", value: "http://localhost:3000" }
                   ],
                   secrets: [
-                    { name: "MONGO_URI", valueFrom: "/" + $projectName + "/production/mongo-uri" },
-                    { name: "JWT_SECRET", valueFrom: "/" + $projectName + "/production/jwt-secret" }
+                    { name: "MONGO_URI", valueFrom: "/\($projectName)/production/mongo-uri" },
+                    { name: "JWT_SECRET", valueFrom: "/\($projectName)/production/jwt-secret" }
                   ],
                   logConfiguration: {
                     logDriver: "awslogs",
