@@ -37,7 +37,7 @@ export default function RegisterPage() {
       } else {
         toast.error(data.message || "Registration failed");
       }
-    } catch (err: any) {
+    } catch {
       toast.error("Server connection failed. Try again.");
     } finally {
       setLoading(false);

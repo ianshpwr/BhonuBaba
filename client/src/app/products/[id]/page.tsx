@@ -5,9 +5,17 @@ import Button from "@/components/Button";
 import { useParams } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+}
+
 export default function ProductDetailPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -41,7 +49,7 @@ export default function ProductDetailPage() {
             <p className="text-[#b3b3b3] leading-relaxed text-lg">{product.description}</p>
           </div>
           <div className="mt-auto flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="text-lg flex-1" onClick={() => addToCart({...product, qty: 1})}>Add to Cart</Button>
+            <Button size="lg" className="text-lg flex-1" onClick={() => addToCart({ ...product, qty: 1 })}>Add to Cart</Button>
           </div>
         </div>
       </div>

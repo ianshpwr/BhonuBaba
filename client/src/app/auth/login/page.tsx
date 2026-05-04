@@ -40,7 +40,7 @@ function LoginForm() {
       } else {
         toast.error(data.message || "Invalid credentials");
       }
-    } catch (err: any) {
+    } catch {
       toast.error("Network error. Please try again.");
     } finally {
       setLoading(false);

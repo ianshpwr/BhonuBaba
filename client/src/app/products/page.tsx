@@ -4,11 +4,19 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+}
+
 function ProductsList() {
   const searchParams = useSearchParams();
   const search = searchParams.get('search') || '';
   
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,7 +55,7 @@ function ProductsList() {
       
       {filteredProducts.length === 0 ? (
         <div className="text-center py-20 glass-card">
-          <p className="text-lg text-[#b3b3b3] mb-6">No products found matching "{search}".</p>
+          <p className="text-lg text-[#b3b3b3] mb-6">No products found matching &quot;{search}&quot;.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

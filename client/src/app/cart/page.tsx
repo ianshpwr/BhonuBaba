@@ -40,7 +40,7 @@ export default function CartPage() {
       } else {
         toast.error("Failed to place order.");
       }
-    } catch (err) {
+    } catch {
       toast.error("Server error. Try again later.");
     }
   };

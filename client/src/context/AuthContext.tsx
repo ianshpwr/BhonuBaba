@@ -1,29 +1,40 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+
+export interface AuthUser {
+  _id: string;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+  token: string;
+}
 
 interface AuthContextType {
-  user: any;
-  login: (userData: any) => void;
+  user: AuthUser | null;
+  login: (userData: AuthUser) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    // Auto-login on refresh
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      try {
-        setUser(JSON.parse(userInfo));
-      } catch (e) {}
+  const [user, setUser] = useState<AuthUser | null>(() => {
+    if (typeof window === "undefined") {
+      return null;
     }
-  }, []);
+    const userInfo = localStorage.getItem("userInfo");
+    if (!userInfo) {
+      return null;
+    }
+    try {
+      return JSON.parse(userInfo) as AuthUser;
+    } catch {
+      return null;
+    }
+  });
 
-  const login = (userData: any) => {
+  const login = (userData: AuthUser) => {
     localStorage.setItem("userInfo", JSON.stringify(userData));
     setUser(userData);
   };

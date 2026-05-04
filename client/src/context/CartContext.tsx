@@ -24,24 +24,26 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const storedCart = localStorage.getItem('bhonubaba_cart');
-    if (storedCart) {
-      try {
-        setCartItems(JSON.parse(storedCart));
-      } catch (e) {}
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    if (typeof window === "undefined") {
+      return [];
     }
-    setIsLoaded(true);
-  }, []);
+    const storedCart = localStorage.getItem('bhonubaba_cart');
+    if (!storedCart) {
+      return [];
+    }
+    try {
+      return JSON.parse(storedCart) as CartItem[];
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
-    if (isLoaded) {
+    if (typeof window !== "undefined") {
       localStorage.setItem('bhonubaba_cart', JSON.stringify(cartItems));
     }
-  }, [cartItems, isLoaded]);
+  }, [cartItems]);
 
   const addToCart = (item: CartItem) => {
     setCartItems(prev => {

@@ -6,8 +6,15 @@ import Button from "@/components/Button";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/context/AuthContext";
 
+interface Order {
+  _id: string;
+  createdAt: string;
+  totalPrice: number;
+  status?: string;
+}
+
 export default function OrdersPage() {
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
@@ -44,7 +51,7 @@ export default function OrdersPage() {
         {orders.length === 0 ? (
           <div className="text-center py-20 glass-card">
             <div className="text-6xl mb-6">📦</div>
-            <p className="text-xl text-[#b3b3b3] mb-8 font-medium">You haven't placed any orders yet.</p>
+            <p className="text-xl text-[#b3b3b3] mb-8 font-medium">You haven&apos;t placed any orders yet.</p>
             <Link href="/products">
               <Button size="lg">Start Shopping</Button>
             </Link>
