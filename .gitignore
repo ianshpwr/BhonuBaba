@@ -1,0 +1,12 @@
+.DS_Store
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+.terraform.lock.hcl
+coverage/
+reports/
+client/.next/
+client/node_modules/
+server/dist/
+server/node_modules/
