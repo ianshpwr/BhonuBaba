@@ -229,60 +229,14 @@ resource "aws_ecr_lifecycle_policy" "server" {
   })
 }
 
-data "aws_iam_policy_document" "task_assume_role" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ecs-tasks.amazonaws.com"]
-    }
-  }
+# Learner Lab does not allow iam:CreateRole or iam:AttachRolePolicy.
+# Use the pre-existing LabRole for both the ECS execution and task roles.
+data "aws_iam_role" "execution" {
+  name = "LabRole"
 }
 
-resource "aws_iam_role" "execution" {
-  name               = "${local.name_prefix}-ecs-execution-role"
-  assume_role_policy = data.aws_iam_policy_document.task_assume_role.json
-  tags               = local.common_tags
-}
-
-resource "aws_iam_role_policy_attachment" "execution" {
-  role       = aws_iam_role.execution.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
-resource "aws_iam_role_policy" "execution_ssm" {
-  name = "${local.name_prefix}-ecs-ssm-policy"
-  role = aws_iam_role.execution.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "ssm:GetParameter",
-          "ssm:GetParameters",
-          "ssm:GetParametersByPath"
-        ]
-        Resource = [
-          "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${local.mongo_ssm_parameter_name}",
-          "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter${local.jwt_ssm_parameter_name}"
-        ]
-      },
-      {
-        Effect   = "Allow"
-        Action   = ["kms:Decrypt"]
-        Resource = "*"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role" "task" {
-  name               = "${local.name_prefix}-ecs-task-role"
-  assume_role_policy = data.aws_iam_policy_document.task_assume_role.json
-  tags               = local.common_tags
+data "aws_iam_role" "task" {
+  name = "LabRole"
 }
 
 resource "aws_ecs_cluster" "main" {

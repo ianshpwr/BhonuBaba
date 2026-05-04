@@ -23,11 +23,11 @@ output "task_family" {
 }
 
 output "task_execution_role_arn" {
-  value = aws_iam_role.execution.arn
+  value = data.aws_iam_role.execution.arn
 }
 
 output "task_role_arn" {
-  value = aws_iam_role.task.arn
+  value = data.aws_iam_role.task.arn
 }
 
 output "cloudwatch_log_group_name" {
