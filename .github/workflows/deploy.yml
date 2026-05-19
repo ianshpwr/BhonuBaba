@@ -1,12 +1,19 @@
-name: Legacy Deploy Notice
+name: Manual Deploy
 
 on:
   workflow_dispatch:
 
 jobs:
-  notice:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Explain deployment workflow
-        run: echo "Deployment is now handled by .github/workflows/ci.yml using Terraform, ECR, and ECS Fargate."
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/backend
+            ./deploy.sh
